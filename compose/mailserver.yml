@@ -41,10 +41,21 @@ services:
     labels:
       traefik.enable: true
       traefik.docker.network: traefik_proxy
-      # traefik.docker.usebindportip: true
       traefik.port: 11334
       traefik.frontend.rule: Host:spam.${ROOT_DOMAIN}
       # traefik.mail.frontend.rule: Host:mail.${ROOT_DOMAIN}
+      traefik.frontend.headers.SSLRedirect: true
+      traefik.frontend.headers.STSSeconds: 315360000
+      traefik.frontend.headers.browserXSSFilter: true
+      traefik.frontend.headers.contentTypeNosniff: true
+      traefik.frontend.headers.forceSTSHeader: true
+      traefik.frontend.headers.STSIncludeSubdomains: true
+      traefik.frontend.headers.STSPreload: true
+      traefik.frontend.headers.frameDeny: true
+      traefik.frontend.headers.customFrameOptionsValue: "allow-from https:${ROOT_DOMAIN}"
+      traefik.frontend.auth.forward.address: http://auth.${ROOT_DOMAIN}/api/verify?rd=https://auth.${ROOT_DOMAIN}/%23/
+      traefik.frontend.auth.forward.authResponseHeaders: X-Forwarded-User
+      traefik.frontend.auth.forward.trustForwardHeader: true
 
   # Administration interface
   # https://github.com/hardware/postfixadmin
@@ -70,6 +81,18 @@ services:
       traefik.docker.network: traefik_proxy
       traefik.port: 8888
       traefik.frontend.rule: Host:postfix.${ROOT_DOMAIN}
+      traefik.frontend.headers.SSLRedirect: true
+      traefik.frontend.headers.STSSeconds: 315360000
+      traefik.frontend.headers.browserXSSFilter: true
+      traefik.frontend.headers.contentTypeNosniff: true
+      traefik.frontend.headers.forceSTSHeader: true
+      traefik.frontend.headers.STSIncludeSubdomains: true
+      traefik.frontend.headers.STSPreload: true
+      traefik.frontend.headers.frameDeny: true
+      traefik.frontend.headers.customFrameOptionsValue: "allow-from https:${ROOT_DOMAIN}"
+      traefik.frontend.auth.forward.address: http://auth.${ROOT_DOMAIN}/api/verify?rd=https://auth.${ROOT_DOMAIN}/%23/
+      traefik.frontend.auth.forward.authResponseHeaders: X-Forwarded-User
+      traefik.frontend.auth.forward.trustForwardHeader: true
 
   # Webmail (Optional)
   # https://github.com/hardware/rainloop
@@ -91,6 +114,18 @@ services:
       traefik.docker.network: traefik_proxy
       traefik.port: 8888
       traefik.frontend.rule: Host:webmail.${ROOT_DOMAIN}
+      traefik.frontend.headers.SSLRedirect: true
+      traefik.frontend.headers.STSSeconds: 315360000
+      traefik.frontend.headers.browserXSSFilter: true
+      traefik.frontend.headers.contentTypeNosniff: true
+      traefik.frontend.headers.forceSTSHeader: true
+      traefik.frontend.headers.STSIncludeSubdomains: true
+      traefik.frontend.headers.STSPreload: true
+      traefik.frontend.headers.frameDeny: true
+      traefik.frontend.headers.customFrameOptionsValue: "allow-from https:${ROOT_DOMAIN}"
+      traefik.frontend.auth.forward.address: http://auth.${ROOT_DOMAIN}/api/verify?rd=https://auth.${ROOT_DOMAIN}/%23/
+      traefik.frontend.auth.forward.authResponseHeaders: X-Forwarded-User
+      traefik.frontend.auth.forward.trustForwardHeader: true
 
   # Authoritative DNS server (Optional)
   # https://github.com/hardware/nsd-dnssec

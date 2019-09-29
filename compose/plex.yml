@@ -53,10 +53,10 @@ services:
       traefik.frontend.headers.browserXSSFilter: true
       traefik.frontend.headers.contentTypeNosniff: true
       traefik.frontend.headers.forceSTSHeader: true
-      traefik.frontend.headers.SSLHost: plex.${ROOT_DOMAIN}
       traefik.frontend.headers.STSIncludeSubdomains: true
       traefik.frontend.headers.STSPreload: true
       traefik.frontend.headers.frameDeny: true
+      traefik.frontend.headers.customFrameOptionsValue: "allow-from https:${ROOT_DOMAIN}"
 
   # https://github.com/linuxserver/docker-ombi
   ombi:
@@ -88,6 +88,7 @@ services:
       traefik.frontend.headers.STSIncludeSubdomains: true
       traefik.frontend.headers.STSPreload: true
       traefik.frontend.headers.frameDeny: true
+      traefik.frontend.headers.customFrameOptionsValue: "allow-from https:${ROOT_DOMAIN}"
 
   # https://github.com/Tautulli/Tautulli-Docker
   tautulli:
@@ -120,6 +121,7 @@ services:
       traefik.frontend.headers.STSIncludeSubdomains: true
       traefik.frontend.headers.STSPreload: true
       traefik.frontend.headers.frameDeny: true
-      traefik.frontend.auth.forward.address: http://oauth:4181
+      traefik.frontend.headers.customFrameOptionsValue: "allow-from https:${ROOT_DOMAIN}"
+      traefik.frontend.auth.forward.address: http://auth.${ROOT_DOMAIN}/api/verify?rd=https://auth.${ROOT_DOMAIN}/%23/
       traefik.frontend.auth.forward.authResponseHeaders: X-Forwarded-User
       traefik.frontend.auth.forward.trustForwardHeader: true
