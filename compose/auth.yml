@@ -33,14 +33,14 @@ services:
     container_name: auth_redis
     restart: unless-stopped
     networks:
-      - traefik_network
+      - traefik_proxy
 
   auth_mongo:
     image: mongo:latest
     container_name: auth_mongo
     restart: unless-stopped
     networks:
-      - traefik_network
+      - traefik_proxy
     environment:
       - MONGO_INITDB_DATABASE=authelia
     volumes:
